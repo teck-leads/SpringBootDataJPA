@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import com.sb.jpa.app.model.Employee;
 import com.sb.jpa.app.repository.EmployeeRepository;
 import java.util.List;
-@Component
+//@Component
 public class EmpSelectRunner implements CommandLineRunner {
 	@Autowired
 	private EmployeeRepository repo;
