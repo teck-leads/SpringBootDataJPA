@@ -23,4 +23,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	List<Employee> findByHireDateBefore(Date date);
 	List<Employee> findByHireDateAfter(Date date);
 	List<Employee> findByEnameContaining(String name);
+	List<Employee> findByHireDateBetween(Date startDate, Date endDate);
 }

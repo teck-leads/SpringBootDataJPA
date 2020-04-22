@@ -1,12 +1,14 @@
 package com.sb.jpa.app.runner;
 
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.sb.jpa.app.model.Employee;
 import com.sb.jpa.app.repository.EmployeeRepository;
 @Component
 public class EmpFindByRunner implements CommandLineRunner {
@@ -42,7 +44,15 @@ public class EmpFindByRunner implements CommandLineRunner {
 //		repo.findByHireDateAfter(yesterday()).forEach(System.out::println);
 //		repo.findByHireDateBefore(nYearsAgo(39)).forEach(System.out::println);
 		
-		repo.findByEnameContaining("ej").forEach(System.out::println);
+//		repo.findByEnameContaining("ej").forEach(System.out::println);
+		System.out.println(customDateSet(1981,11,3));
+		System.out.println(customDateSet(1987,11,3));
+		
+		//repo.findByHireDateBetween(customDateSet(1981,0,3), customDateSet(1987,5,3)).
+		repo.findByHireDateBetween(customDateSet(1987,4,3), new Date()).
+		stream().
+		sorted(Comparator.comparing(Employee::getHireDate)).
+		forEach(System.out::println);
 		
 		
 	}
@@ -57,6 +67,15 @@ public class EmpFindByRunner implements CommandLineRunner {
 	    final Calendar cal = Calendar.getInstance();
 	    cal.add(Calendar.YEAR, -year);
 	    return cal.getTime();
+	}
+	
+	private static Date customDateSet(int year,int month, int day) {
+		final Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MONTH, month);//0 JAN, 1 FEB
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.DATE, day);
+		return cal.getTime();
+		
 	}
 
 }
