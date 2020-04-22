@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.sb.jpa.app.model.Employee;
 
-@Repository
+
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
 	List<Employee> findByEname(String ename);
@@ -24,4 +24,14 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	List<Employee> findByHireDateAfter(Date date);
 	List<Employee> findByEnameContaining(String name);
 	List<Employee> findByHireDateBetween(Date startDate, Date endDate);
+	
+	@Query("SELECT empNo, ename, job FROM Employee WHERE ename =?1 ")
+	Object[] customeColumns(String ename);
+	@Query(" FROM Employee WHERE salary > ?1 ")
+	List<Employee> salary(Double salary);
+	
+	
+	
+	
+	 
 }

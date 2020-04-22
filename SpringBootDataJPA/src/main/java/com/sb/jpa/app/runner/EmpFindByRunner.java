@@ -3,17 +3,21 @@ package com.sb.jpa.app.runner;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.sb.jpa.app.model.Employee;
+import com.sb.jpa.app.repository.EmployeeDao;
 import com.sb.jpa.app.repository.EmployeeRepository;
 @Component
 public class EmpFindByRunner implements CommandLineRunner {
 	@Autowired
 	private EmployeeRepository repo;
+	@Autowired
+	private EmployeeDao employeeDao;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -25,7 +29,7 @@ public class EmpFindByRunner implements CommandLineRunner {
 		
 //		repo.findByJob("MANAGER").forEach(System.out::println);
 		
-//		repo.findByJobLike("%AL%").forEach(System.out::println);
+		repo.findByJobLike("%AL%").forEach(System.out::println);
 		
 //		repo.findByJobNotLike("SA%").forEach(System.out::println);
 		
@@ -45,15 +49,30 @@ public class EmpFindByRunner implements CommandLineRunner {
 //		repo.findByHireDateBefore(nYearsAgo(39)).forEach(System.out::println);
 		
 //		repo.findByEnameContaining("ej").forEach(System.out::println);
-		System.out.println(customDateSet(1981,11,3));
-		System.out.println(customDateSet(1987,11,3));
+	
 		
 		//repo.findByHireDateBetween(customDateSet(1981,0,3), customDateSet(1987,5,3)).
-		repo.findByHireDateBetween(customDateSet(1987,4,3), new Date()).
-		stream().
-		sorted(Comparator.comparing(Employee::getHireDate)).
-		forEach(System.out::println);
+//		repo.findByHireDateBetween(customDateSet(1987,4,3), new Date()).
+//		stream().
+//		sorted(Comparator.comparing(Employee::getHireDate)).
 		
+		//TODO need to work on (not working single coulumn)
+//		System.out.println(repo.customeColumns("teja"));
+//		Object[] customeColumns = (Object[])repo.customeColumns("teja");
+//		System.out.println(customeColumns[0]);
+//		for (int i = 0; i < customeColumns.length; i++) {
+//			System.out.println(customeColumns[i]);
+//		}
+		
+		
+//		repo.salary(1000D).
+//		stream().
+//		sorted(Comparator.comparing(Employee::getSalary)).
+//		forEach(System.out::println);
+		
+		Employee customData = employeeDao.customData("teja");
+		System.out.println("JDBC Template below");
+		System.out.println(customData);
 		
 	}
 	
